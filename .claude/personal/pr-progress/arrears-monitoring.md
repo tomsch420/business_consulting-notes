@@ -1,8 +1,7 @@
 ## Plan
-- ClaimSettlement records each payment (ClaimPayment: transaction, amount) so arrears on a past due date can be told.
-- real_estate/arrears.py: ArrearsStatus.of_ledger(ledger, cut_off): overdue rent claims with days late, total owed, unpaid deposit instalments, termination ground (§ 543 (2) Nr. 3 a/b with § 569 (3) Nr. 1).
-- PortfolioMonitoring(portfolio, statements, day).report(): statuses, receipt findings, totals.
+- real_estate/arrears.py: ArrearsStatus (overdue, days late, total, deposit instalments, termination ground a/b with lapse), PortfolioMonitoring → PortfolioArrears.
+- ClaimSettlement keeps ClaimPayments; outstanding_on(day).
 ## Done
-- Branch, draft PR #136, item in progress.
+- Implemented and pushed (a590bfa); full suite 893 passed; PR #136 description lists decisions and open points.
 ## Next
-- Tests first.
+- CI and review on #136. Open: § 366 (2) order rent vs deposit (R5). Then R7 structured-portfolio (needs R3 and R6 merged).
