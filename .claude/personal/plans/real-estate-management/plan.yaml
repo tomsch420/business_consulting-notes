@@ -67,9 +67,11 @@ items:
   branch: portfolio-consistency-checks
   repository: KAOS-repositories/business_consulting
   track: domain
+  pull_request_number: 133
+  session: local:11904047-7994-426c-978f-18dbdf6e2f15
   depends_on:
   - real-estate-model
-  status: not started
+  status: in progress
   notes: 'real_estate/consistency.py: PortfolioCheck returns PortfolioFinding dataclasses,
     one per kind: unit leased twice over overlapping periods, vacant unit, lease ending before
     it starts, deposit above three net cold rents (§ 551 (1) BGB), tenant unmatchable (no
