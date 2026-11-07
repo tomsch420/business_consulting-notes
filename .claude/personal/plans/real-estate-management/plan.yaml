@@ -115,9 +115,11 @@ items:
   branch: arrears-monitoring
   repository: KAOS-repositories/business_consulting
   track: domain
+  pull_request_number: 136
+  session: local:f2cbb577-8b80-4608-b6bc-155a53d2432e
   depends_on:
   - rent-receipts-matching
-  status: not started
+  status: in progress
   notes: 'real_estate/arrears.py: ArrearsStatus on a cut-off: overdue claims, days late, total
     owed; default from the due date (§ 286 (2) Nr. 1 BGB); flag the ground for termination
     without notice (§ 543 (2) Nr. 3, § 569 (3) Nr. 1 BGB); unpaid deposit instalments. PortfolioMonitoring
