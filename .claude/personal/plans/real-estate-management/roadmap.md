@@ -5,4 +5,4 @@
 - Consistency problems and arrears are findings reported to the landlord, never exceptions that stop a run.
 - A payer is matched by name or IBAN through PartyRegister; a partial match is refused and reported, never guessed.
 - Each law a check rests on is linked to gesetze-im-internet.de in its docstring.
-- doc/real_estate_roadmap.md carries the status table; update it in the PR that changes a status.
+- The plan is the roadmap: doc/real_estate_roadmap.md only links to it, and the open points RO1-RO5 stand in section 5 of doc/real_estate_process.md.
