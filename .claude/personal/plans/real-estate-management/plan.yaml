@@ -131,10 +131,12 @@ items:
   branch: structured-portfolio
   repository: KAOS-repositories/business_consulting
   track: workflow
+  pull_request_number: 137
+  session: local:f2cbb577-8b80-4608-b6bc-155a53d2432e
   depends_on:
   - portfolio-consistency-checks
   - arrears-monitoring
-  status: not started
+  status: in progress
   notes: 'real_estate/structured_portfolio.py: subclassed in a file beside the documents,
     answering PortfolioQuestion members (unanswered raise UnansweredQuestion). SourceDocumentRoot
     gains a portfolios directory. scripts/run_portfolio.py reads the statements, runs checks
