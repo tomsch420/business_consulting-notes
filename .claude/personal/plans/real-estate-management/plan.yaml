@@ -98,9 +98,11 @@ items:
   branch: rent-receipts-matching
   repository: KAOS-repositories/business_consulting
   track: domain
+  pull_request_number: 135
+  session: local:f2cbb577-8b80-4608-b6bc-155a53d2432e
   depends_on:
   - rent-claims
-  status: not started
+  status: in progress
   notes: 'real_estate/rent_ledger.py: Camt053Format into BankStatements, credits on the rent
     account; payer via PartyRegister seeded with tenants (partial match refused, decision
     F6). Allocate to the month the remittance names, else the oldest open claim (§ 366 (2)
