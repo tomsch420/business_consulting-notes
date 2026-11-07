@@ -34,6 +34,9 @@ tracks:
   - id: legal-review
     name: "Legal readings"
     wave: law
+  - id: explanation
+    name: "Explanation and evaluation"
+    wave: rules
 
 items:
   - id: legal-provision-and-authority
@@ -71,11 +74,12 @@ items:
     depends_on: [legal-provision-and-authority]
     status: not started
     notes: >
-      PlanningRule: provision, a condition on the proceedings, and an effect (share of a
-      position in a stage not paid, deferred to a date, moved to another position).
-      PlannedAmount keeps the adjustments applied. Replace EarningsDerivationInProceedings
-      with base derivation + rule. Precedence is declared. Stop for the user's review before
-      any further rule moves.
+      PlanningRule: provision, a condition written as a krrood EQL query over the proceedings
+      and the planned amount, and an effect as inference(Adjustment)(...). PlannedAmount keeps
+      the adjustments applied. Replace EarningsDerivationInProceedings with base derivation +
+      rule; precedence declared. Domain predicates are named for what they check. Done when
+      explain_inference and the verbalizer explain one interest adjustment. Stop for the
+      user's review before any further rule moves.
 
   - id: pre-filing-liabilities-rule
     title: "Pre-filing liabilities as a rule instead of OpenItemDerivationInProceedings"
@@ -196,3 +200,33 @@ items:
       timeline, dated so pre-2021 proceedings read the old reach.
     blockers:
       - "The firm confirms how the plan treats value added tax under a strong preliminary administrator."
+
+  - id: german-clause-verbalization
+    title: "Verbalize planning rules in German at the clause level, exceptions included"
+    branch: german-clause-verbalization
+    repository: KAOS-repositories/business_consulting
+    track: explanation
+    depends_on: [rule-adjustments-interest-pilot]
+    status: not started
+    notes: >
+      krrood's verbalization is English only and does not render RDR refinements. Each domain
+      predicate supplies a complete German clause; a narrow grammar joins them as "Wenn ...,
+      dann ..., außer wenn ...", so no noun phrase is declined. Settle in kickoff whether it
+      goes upstream into krrood or stays a wrapper here. Each predicate's phrase is reviewed
+      against its body once, with a test.
+
+  - id: seeded-fault-evaluation
+    title: "Measure how well insolvency lawyers find planted faults in the rules"
+    branch: seeded-fault-evaluation
+    repository: KAOS-repositories/business_consulting
+    track: explanation
+    depends_on: [german-clause-verbalization, pre-filing-liabilities-rule]
+    status: blocked
+    notes: >
+      Plant faults in a few migrated rules and show them to the firm's insolvency lawyers in
+      three forms: the code, Claude's explanation, and krrood's verbalization with
+      explain_inference case explanations. Count faults found per form. Also record minutes
+      per rule added with Claude, beside report_active_time.py. No published study measures
+      the reading direction.
+    blockers:
+      - "The firm provides insolvency lawyers' time for review sessions."
