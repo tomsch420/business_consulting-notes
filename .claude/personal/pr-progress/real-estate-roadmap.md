@@ -1,6 +1,6 @@
 ## Plan
-- doc/real_estate_process.md (seven phases), doc/real_estate_roadmap.md (R1-R9, decisions, RO1-RO5 as options), "Real estate" caption in doc/_toc.yml.
+- doc/real_estate_process.md (seven phases, open points RO1-RO5 in section 5), doc/real_estate_roadmap.md linking to the plan, "Real estate" caption in doc/_toc.yml.
 ## Done
-- Both documents written and pushed; docs build with no new warnings; doc tests pass. PR #131 description states the open points and the third-bank-working-day reading.
+- Documents pushed; review comment (roadmap should just link to the plan) done in c62c47f and answered on its thread; plan standing rule and R1 notes updated; posted on #127.
 ## Next
-- CI and review on #131. When it merges, mark R1 merged in the status table on R2's branch and start R2 real-estate-model.
+- CI and review on #131. When it merges, start R2 real-estate-model.
