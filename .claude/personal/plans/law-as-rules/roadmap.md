@@ -1,0 +1,10 @@
+# Law as rules: standing rules
+- A legal provision is data: a member of the LegalProvision enum (law, section, subsection, URL), not only a link in a docstring.
+- Every parameter states its Authority (statute, court order, administrator decision, firm convention, estimate); a firm convention is never described as law.
+- A statutory value that can change is a DatedParameter asked for its value on a date, never a fixed init=False constant.
+- A planning rule produces adjustments with its provision; it never mutates a PlannedAmount in place, and precedence between rules is declared, not implied by call order.
+- Every PlannedAmount keeps the adjustments that touched it, so mandate.sqlite answers which norm moved a cell and by how much.
+- The legal stage follows from the proceedings' events; OpeningWeekAllocation is a planning projection on top of it.
+- A legal reading the firm has not confirmed stays a blocked item; the code changes only after confirmation, or is relabelled a firm convention.
+- Borrow the ideas of Catala (exceptions with priority), OpenFisca (dated parameters) and LegalRuleML (provision traceability); adopt none of them as a dependency.
+- doc/liquidity_planning_roadmap.md carries the status table; update it in the PR that changes a status.
