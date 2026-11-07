@@ -1,8 +1,6 @@
 ## Plan
-- real_estate/rent_ledger.py: rent account credits from BankStatements; payer via PartyRegister seeded with lease payers; partial match → finding.
-- Allocation: month named in remittance first, then oldest open claim (§ 366 (2) BGB), across all the payer's leases (RO1).
-- RentLedger per lease: ClaimSettlement per claim (Settlement shape), credit left over; unmatched receipts as findings.
+- real_estate/rent_ledger.py: RentReceiptMatching → RentBook (RentLedger per lease with ClaimSettlement per claim, credit; findings UnrecognizedPayer / PartlyRecognizedPayer).
 ## Done
-- Branch, draft PR #135, item in progress.
+- Implemented and pushed (70890a6); full suite 883 passed; PR #135 description lists decisions and open points (returned direct debits, foreign currency).
 ## Next
-- Tests on DK camt.053 examples, then the module.
+- CI and review on #135. Then R6 arrears-monitoring from main once merged.
