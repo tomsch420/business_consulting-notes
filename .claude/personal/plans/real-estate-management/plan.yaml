@@ -50,9 +50,11 @@ items:
   branch: real-estate-model
   repository: KAOS-repositories/business_consulting
   track: domain
+  pull_request_number: 132
+  session: local:11904047-7994-426c-978f-18dbdf6e2f15
   depends_on:
   - real-estate-roadmap
-  status: not started
+  status: in progress
   notes: 'src/business_consulting/real_estate/: Property > Building > RentalUnit (UnitKind
     StrEnum, area m2); Portfolio (landlord Party, rent_account Account). LeaseAgreement: units,
     tenants (Party), start/end, notice timedelta, RentComponents (StrEnum kind, Money), dated
