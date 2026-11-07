@@ -36,8 +36,10 @@ items:
   branch: real-estate-roadmap
   repository: KAOS-repositories/business_consulting
   track: domain
+  pull_request_number: 131
+  session: local:11904047-7994-426c-978f-18dbdf6e2f15
   depends_on: []
-  status: not started
+  status: in progress
   notes: 'doc/real_estate_process.md (the landlord''s workflow) and doc/real_estate_roadmap.md
     (status table R1-R9, open points), both in _toc.yml.
 
