@@ -38,12 +38,14 @@ items:
     repository: KAOS-repositories/business_consulting
     track: setup
     depends_on: []
-    status: not started
+    status: in progress
     notes: >
-      No PR. ~/cognitive_robot_abstract_machine is 181 commits behind cram/main. Run
-      VIRTUAL_ENV=~/.virtualenvs/cram bash scripts/update_installation.sh, then
-      ~/.virtualenvs/cram/bin/python -m pytest tests. Whatever the update breaks is fixed in
-      its own bug PR off main before R1.
+      No PR of its own. Ran 2026-11-07: cram at be69c37d5c, krrood 26.10.0 in
+      ~/.virtualenvs/cram; pytest-asyncio upgraded to 1.4.1 (0.23.8 broke collection under
+      pytest 9.2). Baseline 835 passed; the 3 failures, also on main CI, are fixed in draft
+      bug PRs #128 (JPT minimum_samples_per_leaf) and #129 (schwifty BIC without XXX).
+      Done once both merge. The workbook rolling_weeks test fails only under -n 8.
+    blockers: ["Bug PRs #128 and #129 to be merged"]
   - id: real-estate-roadmap
     title: "R1: process and roadmap documents for real estate"
     branch: real-estate-roadmap
