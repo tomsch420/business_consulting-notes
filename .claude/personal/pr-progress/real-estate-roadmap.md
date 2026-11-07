@@ -1,8 +1,6 @@
 ## Plan
-- doc/real_estate_process.md: the landlord's workflow in phases, with Judgement call / Open / Gap markers as in the liquidity planning process.
-- doc/real_estate_roadmap.md: status table R1-R9 (branches, builds-on), decisions taken, open points, one paragraph per PR.
-- Both under a new "Real estate" caption in doc/_toc.yml; verify with jupyter-book build doc.
+- doc/real_estate_process.md (seven phases), doc/real_estate_roadmap.md (R1-R9, decisions, RO1-RO5 as options), "Real estate" caption in doc/_toc.yml.
 ## Done
-- Branch, draft PR #131, plan item recorded in progress.
+- Both documents written and pushed; docs build with no new warnings; doc tests pass. PR #131 description states the open points and the third-bank-working-day reading.
 ## Next
-- Write both documents, build the docs, push, update the PR description.
+- CI and review on #131. When it merges, mark R1 merged in the status table on R2's branch and start R2 real-estate-model.
