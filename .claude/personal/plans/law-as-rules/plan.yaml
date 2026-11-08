@@ -16,7 +16,7 @@ waves:
     description: "Provisions, authorities and dated parameters, with no change to what is planned"
   - id: rules
     name: "Rules as adjustments"
-    description: "The interest pilot, then every insolvency rule moved onto it, then the trail shown"
+    description: "The landlord pilot, then every insolvency rule moved onto it, then the trail shown"
   - id: law
     name: "Legal timeline and readings"
     description: "Proceedings as events, and the legal points awaiting the firm"
@@ -44,10 +44,10 @@ items:
     branch: legal-provision-and-authority
     repository: KAOS-repositories/business_consulting
     track: legal-basis
-    depends_on: []
+    depends_on: [landlord-rules-pilot]
     status: not started
     notes: >
-      LegalProvision: an enum whose members are frozen dataclass instances (law, section,
+      The pilot introduces both; extend them to insolvency. LegalProvision: an enum whose members are frozen dataclass instances (law, section,
       subsection, URL), like RecurrenceFrequency. Authority: StrEnum of statute, court order,
       administrator decision, firm convention, estimate. Tag the values of insolvency_rules.py,
       payment_calendar.py and mandate.py (covered_months, 5,000 euros, 2,000 euros, 5 weeks,
@@ -66,27 +66,12 @@ items:
       contribution assessment ceiling onto it; the ceiling is stated per year instead of passed
       in by the caller. Value added tax rates if they live in the package.
 
-  - id: rule-adjustments-interest-pilot
-    title: "PlanningRule with adjustments, piloted on interest from the filing"
-    branch: rule-adjustments-interest-pilot
-    repository: KAOS-repositories/business_consulting
-    track: adjustments
-    depends_on: [legal-provision-and-authority]
-    status: not started
-    notes: >
-      PlanningRule: provision, a condition written as a krrood EQL query over the proceedings
-      and the planned amount, and an effect as inference(Adjustment)(...). PlannedAmount keeps
-      the adjustments applied. Replace EarningsDerivationInProceedings with base derivation +
-      rule; precedence declared. Domain predicates are named for what they check. Done when
-      explain_inference and the verbalizer explain one interest adjustment. Stop for the
-      user's review before any further rule moves.
-
   - id: pre-filing-liabilities-rule
     title: "Pre-filing liabilities as a rule instead of OpenItemDerivationInProceedings"
     branch: pre-filing-liabilities-rule
     repository: KAOS-repositories/business_consulting
     track: adjustments
-    depends_on: [rule-adjustments-interest-pilot]
+    depends_on: [interest-from-filing-rule]
     status: not started
     notes: >
       OpenItemDerivation stays as it is; not paying an open item booked before the filing
@@ -98,7 +83,7 @@ items:
     branch: value-added-tax-rule
     repository: KAOS-repositories/business_consulting
     track: adjustments
-    depends_on: [rule-adjustments-interest-pilot, dated-legal-parameters]
+    depends_on: [interest-from-filing-rule, dated-legal-parameters]
     status: not started
     notes: >
       Split ValueAddedTaxInProceedings into declared rules: pre-filing tax not paid, the
@@ -110,7 +95,7 @@ items:
     branch: insolvency-benefit-rule
     repository: KAOS-repositories/business_consulting
     track: adjustments
-    depends_on: [rule-adjustments-interest-pilot, dated-legal-parameters]
+    depends_on: [interest-from-filing-rule, dated-legal-parameters]
     status: not started
     notes: >
       InsolvencyBenefitPreFinancing.apply_to rewrites planned.amount and drawn_from. Express
@@ -123,7 +108,7 @@ items:
     branch: contributions-and-proceedings-costs-rule
     repository: KAOS-repositories/business_consulting
     track: adjustments
-    depends_on: [rule-adjustments-interest-pilot]
+    depends_on: [interest-from-filing-rule]
     status: not started
     notes: >
       ContributionsInPreliminaryProceedings becomes a rule whose share rests on a court order
@@ -148,7 +133,7 @@ items:
     branch: proceedings-event-timeline
     repository: KAOS-repositories/business_consulting
     track: timeline
-    depends_on: [rule-adjustments-interest-pilot]
+    depends_on: [interest-from-filing-rule]
     status: blocked
     notes: >
       Events: filing, appointment of a weak, strong or self-administering preliminary
@@ -178,7 +163,7 @@ items:
     branch: legal-review-interest-start
     repository: KAOS-repositories/business_consulting
     track: legal-review
-    depends_on: [rule-adjustments-interest-pilot]
+    depends_on: [interest-from-filing-rule]
     status: blocked
     notes: >
       The interest rule stops payment from the filing; § 39 (1) No. 1 InsO subordinates
@@ -206,7 +191,7 @@ items:
     branch: german-clause-verbalization
     repository: KAOS-repositories/business_consulting
     track: explanation
-    depends_on: [rule-adjustments-interest-pilot]
+    depends_on: [landlord-rules-pilot]
     status: not started
     notes: >
       krrood's verbalization is English only and does not render RDR refinements. Each domain
@@ -230,3 +215,30 @@ items:
       the reading direction.
     blockers:
       - "The firm provides insolvency lawyers' time for review sessions."
+
+  - id: landlord-rules-pilot
+    title: "PlanningRule piloted on the landlord's checks (deposit ceiling, termination grounds)"
+    branch: landlord-rules-pilot
+    repository: KAOS-repositories/business_consulting
+    track: adjustments
+    depends_on: []
+    status: not started
+    notes: >
+      Introduces LegalProvision and Authority in the core, for the provisions real_estate cites.
+      PlanningRule: provision, a condition written as a krrood EQL query, an effect inferring a
+      finding with its provision. Move deposit_above_ceiling (§ 551 BGB, living space only, so
+      a commercial lease is no longer flagged) and the termination grounds (§ 543 (2) No. 3,
+      § 569 (3) No. 1 BGB; applied to commercial leases as firm convention) onto it. Done when
+      explain_inference and the verbalizer explain one finding. Stop for the user's review
+      before any insolvency rule moves.
+
+  - id: interest-from-filing-rule
+    title: "Interest from the filing as the first adjustment of a PlannedAmount"
+    branch: interest-from-filing-rule
+    repository: KAOS-repositories/business_consulting
+    track: adjustments
+    depends_on: [landlord-rules-pilot, legal-provision-and-authority]
+    status: not started
+    notes: >
+      Adds Adjustment: PlannedAmount keeps the adjustments applied. Replace
+      EarningsDerivationInProceedings with base derivation + rule; precedence declared.
