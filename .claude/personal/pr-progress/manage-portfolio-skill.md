@@ -1,6 +1,6 @@
 ## Plan
-- manage-portfolio skill, immobilien-verwalten pointer, settings allow run_portfolio.py, workspace CLAUDE.md.
+- Skills generated from krrood Sections: operator_skills/{process, shared_rules, mandate_rules, portfolio_rules, skills}.py + templates; German pointers generated; new_answered_file.py via CodeGenerator.
 ## Done
-- Pushed (839e032); full suite 906 passed; snippet checked on a real run; PR #138 description; follow-up on session-time attribution posted to #127.
+- R8 skill pushed (839e032); review addressed (95b5be0): all four threads answered; full suite 912 passed.
 ## Next
-- Review on #138. Then R9 fints-statements. Open with the user: § 366 (2) rent before deposit; portfolio session-time attribution (#127 comment).
+- Reviewer's next look at #138. Then R9 fints-statements. Open with the user: § 366 (2) rent before deposit; portfolio session-time attribution (#127 comment).
