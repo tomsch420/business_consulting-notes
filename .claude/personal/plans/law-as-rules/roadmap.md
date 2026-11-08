@@ -8,3 +8,4 @@
 - A legal reading the firm has not confirmed stays a blocked item; the code changes only after confirmation, or is relabelled a firm convention.
 - Borrow the ideas of Catala (exceptions with priority), OpenFisca (dated parameters) and LegalRuleML (provision traceability); adopt none of them as a dependency.
 - doc/liquidity_planning_roadmap.md carries the status table; update it in the PR that changes a status.
+- A rule's condition is written in EQL; a krrood Predicate only where the logic cannot be EQL, or where speed matters more than appearing in the inference explanation.
