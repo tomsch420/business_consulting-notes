@@ -221,8 +221,10 @@ items:
     branch: landlord-rules-pilot
     repository: KAOS-repositories/business_consulting
     track: adjustments
+    pull_request_number: 140
+    session: local:bb6e2eab-7f9d-4ad9-a4f1-62a524a6d94c
     depends_on: []
-    status: not started
+    status: in progress
     notes: >
       Introduces LegalProvision and Authority in the core, for the provisions real_estate cites.
       PlanningRule: provision, a condition written as a krrood EQL query, an effect inferring a
