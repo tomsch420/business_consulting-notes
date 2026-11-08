@@ -1,10 +1,7 @@
 ## Plan
-- core/legal_basis.py: LegalProvision (enum of frozen dataclasses), Authority, LegalBasis.
-- core/legal_rule.py: LegalRule (EQL query with inference, conclusions, verbalized).
-- Deposit ceiling rule, living space only (commercial no longer flagged).
-- Termination grounds: three flat rules over each due date's arrears, letter a) before b) as a declared list; § 569 (3) No. 1 for commercial leases as firm convention.
-- Test explain_inference and verbalization of one finding; stop for review before any insolvency rule.
+- Pilot done; stop for the user's review before any insolvency rule moves (interest-from-filing-rule next).
 ## Done
 - Plan restructured (landlord pilot replaces the interest pilot), issue #130 commented; draft PR #140.
+- fe80b21: legal_basis.py, legal_rule.py; DepositCeilingRule (living space only); three termination ground rules in declared order, commercial threshold as firm convention; process doc. 950 tests passed.
 ## Next
-- Tests first, then legal_basis.py.
+- User's review of #140. Open: legal_basis rendered by repr in verbalization (german-clause-verbalization); mixed leases not weighed in LetsLivingSpace; plan site build fails (reusable workflow not found in basstler).
