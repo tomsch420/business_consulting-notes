@@ -149,9 +149,11 @@ items:
   branch: manage-portfolio-skill
   repository: KAOS-repositories/business_consulting
   track: workflow
+  pull_request_number: 138
+  session: local:f2cbb577-8b80-4608-b6bc-155a53d2432e
   depends_on:
   - structured-portfolio
-  status: not started
+  status: in progress
   notes: 'operator_workspace/dot_claude/skills/manage-portfolio, German immobilien-verwalten
     pointing at it. Claude asks about buildings, units, tenants and lease terms, writes the
     portfolio file, runs run_portfolio.py, reports findings and arrears; never edits the repository,
