@@ -165,9 +165,11 @@ items:
   branch: fints-statements
   repository: KAOS-repositories/business_consulting
   track: bank-link
+  pull_request_number: 139
+  session: local:f2cbb577-8b80-4608-b6bc-155a53d2432e
   depends_on:
   - rent-receipts-matching
-  status: not started
+  status: in progress
   notes: 'Check PyPI first (python-fints). Fetch camt.053 or MT940 since the last statement
     into where the portfolio reads them; PIN asked at run time, never stored; TAN by the bank''s
     procedure.
