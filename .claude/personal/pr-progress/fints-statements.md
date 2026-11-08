@@ -1,6 +1,6 @@
 ## Plan
 - Camt052Format + CamtMessageReader; online_banking.py (StatementFetch, prompts, FinTsProduct); ONLINE_BANKING question; fetch_statements.py; skill rule.
 ## Done
-- Implemented and pushed (4e9d4b2); 935 passed. PR #139 description current.
+- Implemented and pushed (4e9d4b2); abbreviations spelled out (9195bb0): OnlineBankingProduct, ONLINE_BANKING_PRODUCT_IDENTIFIER; 935 passed.
 ## Next
-- Reviewer's look at #139. Open with the user: registering the FinTS product identifier; MT940-only banks (follow-up?); § 366 (2) rent before deposit; portfolio session-time attribution (#127).
+- Reviewer's look at #139. Open with the user: registering the online-banking product identifier; MT940-only banks (follow-up?); § 366 (2) rent before deposit; portfolio session-time attribution (#127).
