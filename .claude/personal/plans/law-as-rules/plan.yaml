@@ -259,9 +259,9 @@ items:
 - id: law-as-code-benchmark-survey
   title: Survey published law-as-code benchmarks and pick those krrood is tried on
   branch: law-as-code-benchmark-survey
-  repository: tomsch420/krrood_experiments
+  repository: tomsch420/law_as_code_benchmarks
   track: krrood-benchmarks
-  pull_request_number: 5
+  pull_request_number: 1
   session: claude-code-session:7a8f974f-0765-4710-b41a-14304b0a6aff
   depends_on: []
   status: in progress
