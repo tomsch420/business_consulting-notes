@@ -1,246 +1,250 @@
 schema_version: 1
 id: law-as-rules
-title: "Law as rules"
-description: >
-  Model the German law the liquidity plan applies as first-class data: provisions as an enum,
-  parameters tagged with their authority and dated by validity, insolvency rules as declared
-  adjustments with precedence instead of subclass overrides and in-place edits, and the
-  proceedings as a timeline of legal events. Every planned amount then traces to the norms
-  that moved it. Legal readings found on the way wait for the firm's confirmation.
-default_repository: tomsch420/business_consulting-notes
+title: Law as rules
+description: 'Model the German law the liquidity plan applies as first-class data: provisions
+  as an enum, parameters tagged with their authority and dated by validity, insolvency rules
+  as declared adjustments with precedence instead of subclass overrides and in-place edits,
+  and the proceedings as a timeline of legal events. Every planned amount then traces to the
+  norms that moved it. Legal readings found on the way wait for the firm''s confirmation.
+
+  '
+default_repository: KAOS-repositories/business_consulting
 tracking_issue: 130
-
 waves:
-  - id: foundation
-    name: "Legal basis as data"
-    description: "Provisions, authorities and dated parameters, with no change to what is planned"
-  - id: rules
-    name: "Rules as adjustments"
-    description: "The landlord pilot, then every insolvency rule moved onto it, then the trail shown"
-  - id: law
-    name: "Legal timeline and readings"
-    description: "Proceedings as events, and the legal points awaiting the firm"
-
+- id: foundation
+  name: Legal basis as data
+  description: Provisions, authorities and dated parameters, with no change to what is planned
+- id: rules
+  name: Rules as adjustments
+  description: The landlord pilot, then every insolvency rule moved onto it, then the trail
+    shown
+- id: law
+  name: Legal timeline and readings
+  description: Proceedings as events, and the legal points awaiting the firm
 tracks:
-  - id: legal-basis
-    name: "Legal basis"
-    wave: foundation
-  - id: adjustments
-    name: "Rule adjustments"
-    wave: rules
-  - id: timeline
-    name: "Proceedings timeline"
-    wave: law
-  - id: legal-review
-    name: "Legal readings"
-    wave: law
-  - id: explanation
-    name: "Explanation and evaluation"
-    wave: rules
-
+- id: legal-basis
+  name: Legal basis
+  wave: foundation
+- id: adjustments
+  name: Rule adjustments
+  wave: rules
+- id: timeline
+  name: Proceedings timeline
+  wave: law
+- id: legal-review
+  name: Legal readings
+  wave: law
+- id: explanation
+  name: Explanation and evaluation
+  wave: rules
 items:
-  - id: legal-provision-and-authority
-    title: "LegalProvision enum and the Authority of every parameter"
-    branch: legal-provision-and-authority
-    repository: KAOS-repositories/business_consulting
-    track: legal-basis
-    depends_on: [landlord-rules-pilot]
-    status: not started
-    notes: >
-      The pilot introduces both; extend them to insolvency. LegalProvision: an enum whose members are frozen dataclass instances (law, section,
-      subsection, URL), like RecurrenceFrequency. Authority: StrEnum of statute, court order,
-      administrator decision, firm convention, estimate. Tag the values of insolvency_rules.py,
-      payment_calendar.py and mandate.py (covered_months, 5,000 euros, 2,000 euros, 5 weeks,
-      typical_preliminary_months). Planned figures must not change.
+- id: legal-provision-and-authority
+  title: LegalProvision enum and the Authority of every parameter
+  branch: legal-provision-and-authority
+  repository: KAOS-repositories/business_consulting
+  track: legal-basis
+  depends_on: []
+  status: not started
+  notes: 'The pilot introduces both; extend them to insolvency. LegalProvision: an enum whose
+    members are frozen dataclass instances (law, section, subsection, URL), like RecurrenceFrequency.
+    Authority: StrEnum of statute, court order, administrator decision, firm convention, estimate.
+    Tag the values of insolvency_rules.py, payment_calendar.py and mandate.py (covered_months,
+    5,000 euros, 2,000 euros, 5 weeks, typical_preliminary_months). Planned figures must not
+    change.
 
-  - id: dated-legal-parameters
-    title: "DatedParameter for statutory values that change over time"
-    branch: dated-legal-parameters
-    repository: KAOS-repositories/business_consulting
-    track: legal-basis
-    depends_on: [legal-provision-and-authority]
-    status: not started
-    notes: >
-      As OpenFisca does: a list of (valid_from, value, provision) entries with value_on(date),
-      ORM-mapped. Move StatutoryPaymentDates, covered_months (§ 165 SGB III) and the
-      contribution assessment ceiling onto it; the ceiling is stated per year instead of passed
-      in by the caller. Value added tax rates if they live in the package.
+    '
+- id: dated-legal-parameters
+  title: DatedParameter for statutory values that change over time
+  branch: dated-legal-parameters
+  repository: KAOS-repositories/business_consulting
+  track: legal-basis
+  depends_on:
+  - legal-provision-and-authority
+  status: not started
+  notes: 'As OpenFisca does: a list of (valid_from, value, provision) entries with value_on(date),
+    ORM-mapped. Move StatutoryPaymentDates, covered_months (§ 165 SGB III) and the contribution
+    assessment ceiling onto it; the ceiling is stated per year instead of passed in by the
+    caller. Value added tax rates if they live in the package.
 
-  - id: pre-filing-liabilities-rule
-    title: "Pre-filing liabilities as a rule instead of OpenItemDerivationInProceedings"
-    branch: pre-filing-liabilities-rule
-    repository: KAOS-repositories/business_consulting
-    track: adjustments
-    depends_on: [interest-from-filing-rule]
-    status: not started
-    notes: >
-      OpenItemDerivation stays as it is; not paying an open item booked before the filing
-      becomes a rule with its provision. The cut-off date stays as it is until
-      legal-review-pre-filing-cutoff settles it.
+    '
+- id: pre-filing-liabilities-rule
+  title: Pre-filing liabilities as a rule instead of OpenItemDerivationInProceedings
+  branch: pre-filing-liabilities-rule
+  repository: KAOS-repositories/business_consulting
+  track: adjustments
+  depends_on:
+  - interest-from-filing-rule
+  status: not started
+  notes: 'OpenItemDerivation stays as it is; not paying an open item booked before the filing
+    becomes a rule with its provision. The cut-off date stays as it is until legal-review-pre-filing-cutoff
+    settles it.
 
-  - id: value-added-tax-rule
-    title: "Value added tax in proceedings as rules (§ 55 (4) InsO, revoked filing extension)"
-    branch: value-added-tax-rule
-    repository: KAOS-repositories/business_consulting
-    track: adjustments
-    depends_on: [interest-from-filing-rule, dated-legal-parameters]
-    status: not started
-    notes: >
-      Split ValueAddedTaxInProceedings into declared rules: pre-filing tax not paid, the
-      preliminary proceedings' tax held to the 10th after the opening, monthly payment once
-      opened. Payment dates come from DatedParameter.
+    '
+- id: value-added-tax-rule
+  title: Value added tax in proceedings as rules (§ 55 (4) InsO, revoked filing extension)
+  branch: value-added-tax-rule
+  repository: KAOS-repositories/business_consulting
+  track: adjustments
+  depends_on:
+  - interest-from-filing-rule
+  - dated-legal-parameters
+  status: not started
+  notes: 'Split ValueAddedTaxInProceedings into declared rules: pre-filing tax not paid, the
+    preliminary proceedings'' tax held to the 10th after the opening, monthly payment once
+    opened. Payment dates come from DatedParameter.
 
-  - id: insolvency-benefit-rule
-    title: "Insolvency benefit pre-financing as adjustments instead of apply_to"
-    branch: insolvency-benefit-rule
-    repository: KAOS-repositories/business_consulting
-    track: adjustments
-    depends_on: [interest-from-filing-rule, dated-legal-parameters]
-    status: not started
-    notes: >
-      InsolvencyBenefitPreFinancing.apply_to rewrites planned.amount and drawn_from. Express
-      covered pay, pre-financing cost, uncovered pay and unpaid wage tax as adjustments. The
-      hardest rule; the share-of-days helpers duplicated with InsolvencyProceedings can go
-      into one interval method on Period.
+    '
+- id: insolvency-benefit-rule
+  title: Insolvency benefit pre-financing as adjustments instead of apply_to
+  branch: insolvency-benefit-rule
+  repository: KAOS-repositories/business_consulting
+  track: adjustments
+  depends_on:
+  - interest-from-filing-rule
+  - dated-legal-parameters
+  status: not started
+  notes: 'InsolvencyBenefitPreFinancing.apply_to rewrites planned.amount and drawn_from. Express
+    covered pay, pre-financing cost, uncovered pay and unpaid wage tax as adjustments. The
+    hardest rule; the share-of-days helpers duplicated with InsolvencyProceedings can go into
+    one interval method on Period.
 
-  - id: contributions-and-proceedings-costs-rule
-    title: "Contributions, creditors' committee, estate loans and costs with their legal basis"
-    branch: contributions-and-proceedings-costs-rule
-    repository: KAOS-repositories/business_consulting
-    track: adjustments
-    depends_on: [interest-from-filing-rule]
-    status: not started
-    notes: >
-      ContributionsInPreliminaryProceedings becomes a rule whose share rests on a court order
-      and whose recovery (§ 129 InsO) is an estimate. CreditorsCommittee, EstateLoanInterest
-      and ProceedingsCostDerivation add lines rather than make exceptions: give them a
-      provision and authority. PlanDerivation.derived loses its hand-ordered calls.
+    '
+- id: contributions-and-proceedings-costs-rule
+  title: Contributions, creditors' committee, estate loans and costs with their legal basis
+  branch: contributions-and-proceedings-costs-rule
+  repository: KAOS-repositories/business_consulting
+  track: adjustments
+  depends_on:
+  - interest-from-filing-rule
+  status: not started
+  notes: 'ContributionsInPreliminaryProceedings becomes a rule whose share rests on a court
+    order and whose recovery (§ 129 InsO) is an estimate. CreditorsCommittee, EstateLoanInterest
+    and ProceedingsCostDerivation add lines rather than make exceptions: give them a provision
+    and authority. PlanDerivation.derived loses its hand-ordered calls.
 
-  - id: provision-trail-in-planning-file
-    title: "Show which provisions moved each line, in mandate.sqlite and the planning file"
-    branch: provision-trail-in-planning-file
-    repository: KAOS-repositories/business_consulting
-    track: adjustments
-    depends_on: [pre-filing-liabilities-rule, value-added-tax-rule, insolvency-benefit-rule, contributions-and-proceedings-costs-rule]
-    status: not started
-    notes: >
-      The adjustments are stored with the run; LineRationale or a sheet of the planning file
-      names, in German, the provisions and conventions behind each insolvency line, telling
-      law apart from firm convention and estimate.
+    '
+- id: provision-trail-in-planning-file
+  title: Show which provisions moved each line, in mandate.sqlite and the planning file
+  branch: provision-trail-in-planning-file
+  repository: KAOS-repositories/business_consulting
+  track: adjustments
+  depends_on:
+  - pre-filing-liabilities-rule
+  - value-added-tax-rule
+  - insolvency-benefit-rule
+  - contributions-and-proceedings-costs-rule
+  status: not started
+  notes: 'The adjustments are stored with the run; LineRationale or a sheet of the planning
+    file names, in German, the provisions and conventions behind each insolvency line, telling
+    law apart from firm convention and estimate.
 
-  - id: proceedings-event-timeline
-    title: "Insolvency proceedings as a timeline of legal events"
-    branch: proceedings-event-timeline
-    repository: KAOS-repositories/business_consulting
-    track: timeline
-    depends_on: [interest-from-filing-rule]
-    status: blocked
-    notes: >
-      Events: filing, appointment of a weak, strong or self-administering preliminary
-      administrator, opening, declaration that the estate is insufficient. The legal stage
-      follows from them (event calculus); OpeningWeekAllocation becomes a planning projection,
-      and each rule says which of the two it reads.
-    blockers:
-      - "The firm confirms which rules follow the legal opening day and which the planning allocation of the opening week (value added tax under § 55 (4) InsO in particular)."
+    '
+- id: proceedings-event-timeline
+  title: Insolvency proceedings as a timeline of legal events
+  branch: proceedings-event-timeline
+  repository: KAOS-repositories/business_consulting
+  track: timeline
+  depends_on:
+  - interest-from-filing-rule
+  status: blocked
+  notes: 'Events: filing, appointment of a weak, strong or self-administering preliminary
+    administrator, opening, declaration that the estate is insufficient. The legal stage follows
+    from them (event calculus); OpeningWeekAllocation becomes a planning projection, and each
+    rule says which of the two it reads.
 
-  - id: legal-review-pre-filing-cutoff
-    title: "Pre-filing liabilities: founded before the opening (§ 38 InsO) or invoiced before the filing"
-    branch: legal-review-pre-filing-cutoff
-    repository: KAOS-repositories/business_consulting
-    track: legal-review
-    depends_on: []
-    status: blocked
-    notes: >
-      is_pre_filing_liability cuts at the filing, dated by invoice else due date. § 38 InsO
-      counts a claim founded before the opening, so the service date. Either change the
-      cut-off or keep it as a firm convention with Authority and a docstring saying so. Fix
-      it in pre-filing-liabilities-rule if that has landed.
-    blockers:
-      - "The firm confirms whether the filing cut-off by invoice date is deliberate planning practice or should follow § 38 InsO."
+    '
+  blockers:
+  - The firm confirms which rules follow the legal opening day and which the planning allocation
+    of the opening week (value added tax under § 55 (4) InsO in particular).
+- id: legal-review-pre-filing-cutoff
+  title: 'Pre-filing liabilities: founded before the opening (§ 38 InsO) or invoiced before
+    the filing'
+  branch: legal-review-pre-filing-cutoff
+  repository: KAOS-repositories/business_consulting
+  track: legal-review
+  depends_on: []
+  status: blocked
+  notes: 'is_pre_filing_liability cuts at the filing, dated by invoice else due date. § 38
+    InsO counts a claim founded before the opening, so the service date. Either change the
+    cut-off or keep it as a firm convention with Authority and a docstring saying so. Fix
+    it in pre-filing-liabilities-rule if that has landed.
 
-  - id: legal-review-interest-start
-    title: "Interest: unpaid from the filing, or subordinated from the opening (§ 39 (1) No. 1 InsO)"
-    branch: legal-review-interest-start
-    repository: KAOS-repositories/business_consulting
-    track: legal-review
-    depends_on: [interest-from-filing-rule]
-    status: blocked
-    notes: >
-      The interest rule stops payment from the filing; § 39 (1) No. 1 InsO subordinates
-      interest from the opening. Change the rule's stage, or label it a firm convention.
-    blockers:
-      - "The firm confirms whether stopping interest at the filing is deliberate planning practice."
+    '
+  blockers:
+  - The firm confirms whether the filing cut-off by invoice date is deliberate planning practice
+    or should follow § 38 InsO.
+- id: legal-review-interest-start
+  title: 'Interest: unpaid from the filing, or subordinated from the opening (§ 39 (1) No.
+    1 InsO)'
+  branch: legal-review-interest-start
+  repository: KAOS-repositories/business_consulting
+  track: legal-review
+  depends_on:
+  - interest-from-filing-rule
+  status: blocked
+  notes: 'The interest rule stops payment from the filing; § 39 (1) No. 1 InsO subordinates
+    interest from the opening. Change the rule''s stage, or label it a firm convention.
 
-  - id: section-55-4-conditions
-    title: "Apply § 55 (4) InsO only where its conditions hold"
-    branch: section-55-4-conditions
-    repository: KAOS-repositories/business_consulting
-    track: legal-review
-    depends_on: [proceedings-event-timeline, value-added-tax-rule]
-    status: blocked
-    notes: >
-      § 55 (4) InsO covers a weak preliminary administrator whose consent is required, or
-      self-administration (since the 2021 SanInsFoG). The value added tax rule applies it
-      unconditionally; condition it on the kind of preliminary administration from the event
-      timeline, dated so pre-2021 proceedings read the old reach.
-    blockers:
-      - "The firm confirms how the plan treats value added tax under a strong preliminary administrator."
+    '
+  blockers:
+  - The firm confirms whether stopping interest at the filing is deliberate planning practice.
+- id: section-55-4-conditions
+  title: Apply § 55 (4) InsO only where its conditions hold
+  branch: section-55-4-conditions
+  repository: KAOS-repositories/business_consulting
+  track: legal-review
+  depends_on:
+  - proceedings-event-timeline
+  - value-added-tax-rule
+  status: blocked
+  notes: '§ 55 (4) InsO covers a weak preliminary administrator whose consent is required,
+    or self-administration (since the 2021 SanInsFoG). The value added tax rule applies it
+    unconditionally; condition it on the kind of preliminary administration from the event
+    timeline, dated so pre-2021 proceedings read the old reach.
 
-  - id: german-clause-verbalization
-    title: "Verbalize planning rules in German at the clause level, exceptions included"
-    branch: german-clause-verbalization
-    repository: KAOS-repositories/business_consulting
-    track: explanation
-    depends_on: [landlord-rules-pilot]
-    status: not started
-    notes: >
-      krrood's verbalization is English only and does not render RDR refinements. Each domain
-      predicate supplies a complete German clause; a narrow grammar joins them as "Wenn ...,
-      dann ..., außer wenn ...", so no noun phrase is declined. Settle in kickoff whether it
-      goes upstream into krrood or stays a wrapper here. Each predicate's phrase is reviewed
-      against its body once, with a test.
+    '
+  blockers:
+  - The firm confirms how the plan treats value added tax under a strong preliminary administrator.
+- id: german-clause-verbalization
+  title: Verbalize planning rules in German at the clause level, exceptions included
+  branch: german-clause-verbalization
+  repository: KAOS-repositories/business_consulting
+  track: explanation
+  depends_on: []
+  status: not started
+  notes: 'krrood''s verbalization is English only and does not render RDR refinements. Each
+    domain predicate supplies a complete German clause; a narrow grammar joins them as "Wenn
+    ..., dann ..., außer wenn ...", so no noun phrase is declined. Settle in kickoff whether
+    it goes upstream into krrood or stays a wrapper here. Each predicate''s phrase is reviewed
+    against its body once, with a test.
 
-  - id: seeded-fault-evaluation
-    title: "Measure how well insolvency lawyers find planted faults in the rules"
-    branch: seeded-fault-evaluation
-    repository: KAOS-repositories/business_consulting
-    track: explanation
-    depends_on: [german-clause-verbalization, pre-filing-liabilities-rule]
-    status: blocked
-    notes: >
-      Plant faults in a few migrated rules and show them to the firm's insolvency lawyers in
-      three forms: the code, Claude's explanation, and krrood's verbalization with
-      explain_inference case explanations. Count faults found per form. Also record minutes
-      per rule added with Claude, beside report_active_time.py. No published study measures
-      the reading direction.
-    blockers:
-      - "The firm provides insolvency lawyers' time for review sessions."
+    '
+- id: seeded-fault-evaluation
+  title: Measure how well insolvency lawyers find planted faults in the rules
+  branch: seeded-fault-evaluation
+  repository: KAOS-repositories/business_consulting
+  track: explanation
+  depends_on:
+  - german-clause-verbalization
+  - pre-filing-liabilities-rule
+  status: blocked
+  notes: 'Plant faults in a few migrated rules and show them to the firm''s insolvency lawyers
+    in three forms: the code, Claude''s explanation, and krrood''s verbalization with explain_inference
+    case explanations. Count faults found per form. Also record minutes per rule added with
+    Claude, beside report_active_time.py. No published study measures the reading direction.
 
-  - id: landlord-rules-pilot
-    title: "PlanningRule piloted on the landlord's checks (deposit ceiling, termination grounds)"
-    branch: landlord-rules-pilot
-    repository: KAOS-repositories/business_consulting
-    track: adjustments
-    pull_request_number: 140
-    session: local:bb6e2eab-7f9d-4ad9-a4f1-62a524a6d94c
-    depends_on: []
-    status: in progress
-    notes: >
-      Introduces LegalProvision and Authority in the core, for the provisions real_estate cites.
-      PlanningRule: provision, a condition written as a krrood EQL query, an effect inferring a
-      finding with its provision. Move deposit_above_ceiling (§ 551 BGB, living space only, so
-      a commercial lease is no longer flagged) and the termination grounds (§ 543 (2) No. 3,
-      § 569 (3) No. 1 BGB; applied to commercial leases as firm convention) onto it. Done when
-      explain_inference and the verbalizer explain one finding. Stop for the user's review
-      before any insolvency rule moves.
+    '
+  blockers:
+  - The firm provides insolvency lawyers' time for review sessions.
+- id: interest-from-filing-rule
+  title: Interest from the filing as the first adjustment of a PlannedAmount
+  branch: interest-from-filing-rule
+  repository: KAOS-repositories/business_consulting
+  track: adjustments
+  depends_on:
+  - legal-provision-and-authority
+  status: not started
+  notes: 'Adds Adjustment: PlannedAmount keeps the adjustments applied. Replace EarningsDerivationInProceedings
+    with base derivation + rule; precedence declared.
 
-  - id: interest-from-filing-rule
-    title: "Interest from the filing as the first adjustment of a PlannedAmount"
-    branch: interest-from-filing-rule
-    repository: KAOS-repositories/business_consulting
-    track: adjustments
-    depends_on: [landlord-rules-pilot, legal-provision-and-authority]
-    status: not started
-    notes: >
-      Adds Adjustment: PlannedAmount keeps the adjustments applied. Replace
-      EarningsDerivationInProceedings with base derivation + rule; precedence declared.
+    '
