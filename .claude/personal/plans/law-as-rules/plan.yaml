@@ -261,8 +261,10 @@ items:
   branch: law-as-code-benchmark-survey
   repository: tomsch420/krrood_experiments
   track: krrood-benchmarks
+  pull_request_number: 5
+  session: claude-code-session:7a8f974f-0765-4710-b41a-14304b0a6aff
   depends_on: []
-  status: not started
+  status: in progress
   notes: 'Benchmarks with statutes, cases and reference answers; candidates: SARA, Catala''s
     examples, OpenFisca''s YAML tests, LegalBench rule tasks, COLIEE, DMN TCK, PROLEG. Note
     license, size, what is asked (computation, exceptions, dated validity), ground truth; pick
