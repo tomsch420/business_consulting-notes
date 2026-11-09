@@ -1,8 +1,7 @@
 ## Plan
-- Survey SARA, Catala examples, OpenFisca YAML tests, LegalBench rule tasks, COLIEE, DMN TCK, PROLEG: license, size, what is asked (computation, exceptions, dated validity), ground truth.
-- Write doc/law_as_code_benchmarks.md in tomsch420/krrood_experiments, pick two or three.
-- Propose follow-up items (model each in krrood and score; capability report) on tracking issue #130: plan is at its 15-item limit.
+- Survey seven candidate benchmarks; pick two or three; propose follow-up items on #130 (plan at 15-item limit).
 ## Done
-- Draft PR tomsch420/krrood_experiments#5 opened on branch law-as-code-benchmark-survey; item recorded in progress.
+- doc/law_as_code_benchmarks.md on tomsch420/krrood_experiments#5 (a8dc1dd): picks SARA, Catala allocations_familiales, OpenFisca af*.yaml tests. PR description current; follow-up items proposed on #130 (issuecomment-6749870981).
 ## Next
-- Research each candidate from its primary source.
+- User's review of the pick. User decides how the four follow-up items fit the plan (retire finished items or a separate plan).
+- Plan records PR number 5 against the plan's repository; the link may point to the wrong repository.
