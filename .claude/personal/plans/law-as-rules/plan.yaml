@@ -16,15 +16,10 @@ waves:
   description: Provisions, authorities and dated parameters, with no change to what is planned
 - id: rules
   name: Rules as adjustments
-  description: The landlord pilot, then every insolvency rule moved onto it, then the trail
-    shown
+  description: The landlord pilot, then every insolvency rule moved onto it, then the trail shown
 - id: law
   name: Legal timeline and readings
   description: Proceedings as events, and the legal points awaiting the firm
-- id: benchmarks
-  name: Law-as-code benchmarks
-  description: How well krrood models published law-as-code benchmarks, judged apart from
-    this project
 tracks:
 - id: legal-basis
   name: Legal basis
@@ -41,9 +36,6 @@ tracks:
 - id: explanation
   name: Explanation and evaluation
   wave: rules
-- id: krrood-benchmarks
-  name: krrood on law-as-code benchmarks
-  wave: benchmarks
 items:
 - id: legal-provision-and-authority
   title: LegalProvision enum and the Authority of every parameter
@@ -253,22 +245,5 @@ items:
   status: not started
   notes: 'Adds Adjustment: PlannedAmount keeps the adjustments applied. Replace EarningsDerivationInProceedings
     with base derivation + rule; precedence declared.
-
-    '
-
-- id: law-as-code-benchmark-survey
-  title: Survey published law-as-code benchmarks and pick those krrood is tried on
-  branch: law-as-code-benchmark-survey
-  repository: tomsch420/law_as_code_benchmarks
-  track: krrood-benchmarks
-  pull_request_number: 1
-  session: claude-code-session:7a8f974f-0765-4710-b41a-14304b0a6aff
-  depends_on: []
-  status: in progress
-  notes: 'Benchmarks with statutes, cases and reference answers; candidates: SARA, Catala''s
-    examples, OpenFisca''s YAML tests, LegalBench rule tasks, COLIEE, DMN TCK, PROLEG. Note
-    license, size, what is asked (computation, exceptions, dated validity), ground truth; pick
-    two or three. Then add items: each modelled in krrood and scored, and a report of what
-    krrood handles, works around or lacks, gaps filed on cram2/cognitive_robot_abstract_machine.
 
     '
