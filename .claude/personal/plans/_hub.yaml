@@ -6,3 +6,4 @@ registry: tomsch420/business_consulting-notes
 notes_branch: claude/personal-notes
 repositories:
 - tomsch420/business_consulting-notes
+- tomsch420/law_as_code_benchmarks
