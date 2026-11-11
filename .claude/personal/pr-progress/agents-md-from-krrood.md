@@ -1,7 +1,7 @@
 ## Plan
-- Adopt krrood's agent instructions: repo rules as `Section`s in root `agent_rules.py`, `krrood agents-md` writes `AGENTS.md`, `CLAUDE.md` = `@AGENTS.md` + descriptive prose.
-- User's choices: follow krrood on Co-Authored-By (use "Made with AI assistance"), and on running tests a few modules at a time; pre-commit hooks krrood-format, krrood-check, krrood-agents-md.
+- Adopt krrood's agent instructions: repo rules in root `agent_rules.py`, generated `AGENTS.md`, `CLAUDE.md` = `@AGENTS.md` + descriptive prose.
 ## Done
-- Branch agents-md-from-krrood from main 7170e9a.
+- Draft PR #147 (06060ea). Tests against cram2 main 2616c8a1e8: agent_instructions+answered_file 8 passed, operator_workspace 25 passed. krrood check clean on staged lines.
+- User chose: no Co-Authored-By (krrood rule), tests a few modules at a time, hooks format+check+agents-md.
 ## Next
-- Test that AGENTS.md is current (first); agent_rules.py; regenerate; slim CLAUDE.md; operator skill pointer to AGENTS.md; .pre-commit-config.yaml; requirements; draft PR.
+- User's review; CI. Local test venv's krrood is 288 commits behind cram main: test_agent_instructions needs it updated.
