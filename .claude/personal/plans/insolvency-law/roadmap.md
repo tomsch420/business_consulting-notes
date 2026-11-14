@@ -1,0 +1,12 @@
+# Insolvency law for consultants: standing rules
+- The law lives in business_consulting.insolvency_law; core/cashflow reads its conclusions and never restates a rule.
+- A mechanical rule is encoded; an open-textured judgement (a forecast, a creditor's knowledge, disadvantage to creditors, a director's care) is a Judgement the consultant states, recorded with who stated it.
+- Every conclusion names the provisions and the judgements it rests on.
+- Statute is cited as a LegalProvision member; case law by court, date and file number.
+- A rule a reform changed (SanInsFoG 2021, COVInsAG, the 2017 avoidance reform) is dated and answers for the date of the case.
+- LegalProvision, Authority and DatedParameter come from law-as-rules; never a second copy.
+- A legal reading the firm has not confirmed stays a blocked item, as in law-as-rules.
+- Choose what to model by the actions consultants take (a payment, a filing date), not by statute order.
+- A rule is validated against court decisions in law_as_code_benchmarks before consultants rely on it; each disagreement is traced to the extraction or to the rule.
+- A rule's condition is written in EQL, as in law-as-rules.
+- Consultants do not rely on the tool before a lawyer's opinion on whether it is a legal service under §§ 2 and 5 RDG; its wording follows that opinion.

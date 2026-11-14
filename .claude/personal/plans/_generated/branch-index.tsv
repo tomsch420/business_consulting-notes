@@ -1,3 +1,16 @@
+insolvency-case-model	insolvency-law
+insolvency-grounds	insolvency-law
+filing-duty	insolvency-law
+payment-ban	insolvency-law
+avoidance-periods	insolvency-law
+insolvency-benefit-entitlement	insolvency-law
+claim-ranking	insolvency-law
+administrator-remuneration	insolvency-law
+court-decision-corpus	insolvency-law
+court-fact-extraction	insolvency-law
+remuneration-benchmark	insolvency-law
+filing-date-benchmarks	insolvency-law
+liquidity-plan-checks	insolvency-law
 legal-provision-and-authority	law-as-rules
 dated-legal-parameters	law-as-rules
 pre-filing-liabilities-rule	law-as-rules

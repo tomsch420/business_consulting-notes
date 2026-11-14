@@ -1,0 +1,223 @@
+schema_version: 1
+id: insolvency-law
+title: Insolvency law for consultants
+description: 'Model German insolvency law as business_consulting.insolvency_law, so an insolvency consultant
+  can check what a planned action (a payment, a filing date) produces on the law side. Mechanical rules
+  are encoded; open-textured judgements are inputs the consultant states, and every conclusion names the
+  provisions and judgements it rests on. Each rule is validated against German court decisions in law_as_code_benchmarks.
+
+  '
+default_repository: KAOS-repositories/business_consulting
+tracking_issue: 150
+waves:
+- id: foundation
+  name: Case and conclusion
+  description: The facts of an insolvency case, the consultant's judgements, and conclusions that cite
+    both
+- id: filing-date
+  name: What turns on the filing date
+  description: Insolvency grounds, filing duty, payment ban, avoidance, insolvency benefit, claims, remuneration
+- id: validation
+  name: Validation against court decisions
+  description: Benchmarks in law_as_code_benchmarks that compare each rule with the Tenor of decisions
+- id: consultant-tool
+  name: The consultant's check
+  description: Run the rules against a liquidity plan's actions and release it to consultants
+tracks:
+- id: case-model
+  name: Case model
+  wave: foundation
+- id: grounds-and-duties
+  name: Insolvency grounds and directors' duties
+  wave: filing-date
+- id: avoidance
+  name: Avoidance
+  wave: filing-date
+- id: proceedings
+  name: Proceedings
+  wave: filing-date
+- id: court-decisions
+  name: Court decisions
+  wave: validation
+- id: release
+  name: Consultant check
+  wave: consultant-tool
+items:
+- id: insolvency-case-model
+  title: The insolvency_law subpackage, its case facts, judgements and conclusions
+  branch: insolvency-case-model
+  track: case-model
+  depends_on:
+  - law-as-rules/legal-provision-and-authority
+  - law-as-rules/dated-legal-parameters
+  status: not started
+  notes: 'Creates business_consulting.insolvency_law. A case holds the debtor, the dates (filing, appointments,
+    opening), payments and claims. A Judgement is an open-textured finding the consultant states (forecast,
+    knowledge, care), with who stated it. A Conclusion names the LegalProvision members and the judgements
+    it rests on. Reuse law-as-rules'' LegalProvision, Authority and DatedParameter; never a second copy.
+
+    '
+- id: insolvency-grounds
+  title: Insolvency grounds, §§ 17-19 InsO
+  branch: insolvency-grounds
+  track: grounds-and-duties
+  depends_on:
+  - insolvency-case-model
+  status: not started
+  notes: 'Inability to pay with the BGH''s gap test (at least 10 % of due debts unpaid beyond three weeks,
+    case law to be cited by file number), imminent inability to pay and over-indebtedness with their forecast
+    horizons as changed by SanInsFoG 2021 and COVInsAG, dated. The going-concern forecast is a Judgement
+    input, never computed.
+
+    '
+- id: filing-duty
+  title: Filing duty and its deadline, § 15a InsO
+  branch: filing-duty
+  track: grounds-and-duties
+  depends_on:
+  - insolvency-grounds
+  status: not started
+  notes: 'From the grounds, who must file and by when (three weeks for inability to pay, six for over-indebtedness
+    since 2021), with the COVInsAG suspensions as dated exceptions. Answers "what if we file on day D":
+    whether D is late, and since when the duty ran.
+
+    '
+- id: payment-ban
+  title: Payment ban and directors' liability, § 15b InsO
+  branch: payment-ban
+  track: grounds-and-duties
+  depends_on:
+  - filing-duty
+  status: not started
+  notes: 'Whether a payment after the onset of inability to pay or over-indebtedness makes the directors
+    liable, and the exceptions for payments consistent with a prudent director''s care during the filing
+    period. The care is a Judgement input where the statute''s presumptions do not settle it.
+
+    '
+- id: avoidance-periods
+  title: Avoidance of payments made before the filing, §§ 129-142 InsO
+  branch: avoidance-periods
+  track: avoidance
+  depends_on:
+  - insolvency-case-model
+  status: not started
+  notes: 'Look-back periods counted from the filing (§ 139), congruent and incongruent cover (§§ 130,
+    131), intentional disadvantage (§ 133, dated by the 2017 reform), gratuitous acts (§ 134), cash transactions
+    (§ 142). Knowledge and intent are Judgement inputs. Gives contributions-and-proceedings-costs-rule
+    (law-as-rules) a basis for what is recovered.
+
+    '
+- id: insolvency-benefit-entitlement
+  title: Insolvency benefit entitlement, §§ 165-167 SGB III
+  branch: insolvency-benefit-entitlement
+  track: proceedings
+  depends_on:
+  - insolvency-case-model
+  status: not started
+  notes: 'The covered window is the three months before the insolvency event (opening, rejection for lack
+    of assets, or cessation), not three months from the filing: the user decided on 2026-11-14 to follow
+    the statute. Includes unpaid pre-filing wages inside the window and the cap at the contribution assessment
+    ceiling. law-as-rules/insolvency-benefit-rule consumes it.
+
+    '
+- id: claim-ranking
+  title: Ranking of claims, §§ 38, 39, 53-55 InsO
+  branch: claim-ranking
+  track: proceedings
+  depends_on:
+  - insolvency-case-model
+  - law-as-rules/proceedings-event-timeline
+  status: not started
+  notes: 'Classifies a claim as an insolvency claim, a subordinated claim or a liability of the estate,
+    by when it was founded and by who acted (strong preliminary administrator, consent requirement, self-administration).
+    § 55 (4) itself stays law-as-rules/section-55-4-conditions; it reads this classification. Gives the
+    readings of legal-review-pre-filing-cutoff and legal-review-interest-start a rule to point to.
+
+    '
+- id: administrator-remuneration
+  title: Remuneration of administrator and custodian, InsVV
+  branch: administrator-remuneration
+  track: proceedings
+  depends_on:
+  - insolvency-case-model
+  status: not started
+  notes: 'Base fee from the estate''s value by the tiers of § 2 InsVV, the shares for the preliminary
+    administrator and the (preliminary) custodian, dated by the 2021 reform. Increases and reductions
+    (§ 3) are Judgement inputs. Replaces the hand-entered administrator_remuneration figure; coordinate
+    with law-as-rules/contributions-and-proceedings-costs-rule, which touches the same costs.
+
+    '
+- id: court-decision-corpus
+  title: Corpus of German insolvency decisions in law_as_code_benchmarks
+  branch: court-decision-corpus
+  repository: tomsch420/law_as_code_benchmarks
+  track: court-decisions
+  depends_on: []
+  status: not started
+  notes: 'Fetch decisions by topic from the Open Legal Data API (no key needed) and Fobbe''s CE-BGH and
+    CE-BFH corpora on Zenodo, as FetchedTestFiles of the law package. Topics: InsVV remuneration, avoidance,
+    insolvency benefit (social courts), § 15b liability. Ask the user before adding business_consulting
+    as a dependency of the benchmark.
+
+    '
+- id: court-fact-extraction
+  title: Extract the facts a court found into insolvency_law's case model with Claude
+  branch: court-fact-extraction
+  repository: tomsch420/law_as_code_benchmarks
+  track: court-decisions
+  depends_on:
+  - court-decision-corpus
+  - insolvency-case-model
+  status: not started
+  notes: 'Claude reads the Tatbestand and reasons and fills the case facts and judgements; the Tenor is
+    parsed into the expected conclusion. Live calls are skipped in CI and paired with mocked tests. Decisions
+    that turn on procedure, jurisdiction or a settlement are filtered out, so they do not count against
+    a rule.
+
+    '
+- id: remuneration-benchmark
+  title: Validate the InsVV remuneration against fee decisions
+  branch: remuneration-benchmark
+  repository: tomsch420/law_as_code_benchmarks
+  track: court-decisions
+  depends_on:
+  - administrator-remuneration
+  - court-fact-extraction
+  status: not started
+  notes: 'The first benchmark, because the Tenor states an amount: compare the computed fee with the fixed
+    one. Each disagreement is traced to the extraction or to the rule, and a rule fix goes back to business_consulting
+    with the decision as its test.
+
+    '
+- id: filing-date-benchmarks
+  title: Validate avoidance, insolvency benefit and payment ban against decisions
+  branch: filing-date-benchmarks
+  repository: tomsch420/law_as_code_benchmarks
+  track: court-decisions
+  depends_on:
+  - avoidance-periods
+  - insolvency-benefit-entitlement
+  - payment-ban
+  - court-fact-extraction
+  status: not started
+  notes: 'BGH IX. Zivilsenat decisions for avoidance and § 15b, social court decisions for the insolvency
+    benefit window. Report agreement per rule and the judgements each disagreement depended on.
+
+    '
+- id: liquidity-plan-checks
+  title: Check every planned payment and the filing date of a liquidity plan, explained in German
+  branch: liquidity-plan-checks
+  track: release
+  depends_on:
+  - payment-ban
+  - avoidance-periods
+  - filing-duty
+  - law-as-rules/german-clause-verbalization
+  status: not started
+  notes: 'For a mandate''s liquidity plan and a filing date, flag each planned payment that breaks the
+    payment ban or can be avoided, and whether the filing is in time; vary the filing date and compare.
+    Each flag reads as a German sentence naming the provision, the facts and the judgements it depends
+    on ("anfechtbar, wenn der Lieferant ... kannte"), built on law-as-rules'' clause verbalization, and
+    goes to the planning file.
+
+    '
