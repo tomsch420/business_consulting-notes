@@ -102,12 +102,15 @@ items:
   - interest-from-filing-rule
   - dated-legal-parameters
   status: not started
-  notes: 'InsolvencyBenefitPreFinancing.apply_to rewrites planned.amount and drawn_from. Express
-    covered pay, pre-financing cost, uncovered pay and unpaid wage tax as adjustments. The
-    hardest rule; the share-of-days helpers duplicated with InsolvencyProceedings can go into
-    one interval method on Period.
+  notes: >
+    InsolvencyBenefitPreFinancing.apply_to rewrites planned.amount and drawn_from. Express covered
+    pay, pre-financing cost, uncovered pay and unpaid wage tax as adjustments. The hardest rule; the
+    share-of-days helpers duplicated with InsolvencyProceedings can go into one interval method on
+    Period.
 
-    '
+    Cover window: the three months before the insolvency event (§ 165 SGB III), not from the filing;
+    the user decided on 2026-11-14. Read it from insolvency-law/insolvency-benefit-entitlement once
+    landed.
 - id: contributions-and-proceedings-costs-rule
   title: Contributions, creditors' committee, estate loans and costs with their legal basis
   branch: contributions-and-proceedings-costs-rule
