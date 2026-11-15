@@ -1,6 +1,6 @@
 ## Plan
-- Mandate conscious of time (PR #151): releases recorded once in releases.sqlite as known on their day, documents by arrival day, answers revised with answer_in_force, development sheets in the planning file.
+- Mandate conscious of time (PR #151): releases kept as a PlanModificationHistory (initial plan + blocks of apply/revert modifications, like the semantic digital twin's) in plan_history.jsonl; documents by arrival day; answers revised with answer_in_force; development sheets.
 ## Done
-- Draft PR #151 (6403e1f). 305 passed, 1 skipped across the related test modules.
+- a78ebbb replaced the SQL ledger with the modification history. 313 passed, 1 skipped across the related modules; hooks pass.
 ## Next
-- User's review of the new process; ask whether MandateRun.of may be renamed (krrood check flags it); CI.
+- User's review; ask whether MandateRun.of may be renamed; CI.
