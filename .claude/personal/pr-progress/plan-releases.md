@@ -1,6 +1,6 @@
 ## Plan
-- Mandate conscious of time (PR #151): releases kept as a PlanModificationHistory (initial plan + blocks of apply/revert modifications, like the semantic digital twin's) in plan_history.jsonl; documents by arrival day; answers revised with answer_in_force; development sheets.
+- Mandate conscious of time (PR #151): the client's file is the history - every fact a dated Fact with Revision/Withdrawal; known_at datetime; releases rebuilt as known when they went out; rendering = --known-at / --development-since. No stored history.
 ## Done
-- a78ebbb replaced the SQL ledger with the modification history. 313 passed, 1 skipped across the related modules; hooks pass.
+- c030d11: redesign pushed; 327 passed, 6 skipped across related modules; hooks pass. Replied on the 3 review threads (left open).
 ## Next
 - User's review; ask whether MandateRun.of may be renamed; CI.
