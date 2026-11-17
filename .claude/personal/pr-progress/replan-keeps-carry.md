@@ -1,6 +1,6 @@
 ## Plan
-- #154 fixes #149: re-plan keeps the carry of postponed lines (WeeklyCycle.carry_into, applied in forecast_with). Stacked on #155 (CI fix).
+- #154 fixes #149: re-plan keeps the carry of postponed lines (WeeklyCycle.carry_into, applied in forecast_with).
 ## Done
-- 46cb2df: test + fix + docstring warning; tests and hooks pass. b83d8d7 merged #155's branch in.
+- 46cb2df: test + fix + docstring warning; tests and hooks pass. #155 merged; retargeted to main and merged main in.
 ## Next
-- CI; user's review. Retarget to main once #155 merges, then merge main.
+- CI; user's review.
